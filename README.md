@@ -1,5 +1,10 @@
-Autorzy: Sebastian Misztal, Maciej Nessel 
+# Opis
+Temat: Sklep internetowy sprzedający ubrania. 
 
-Temat: Sklep internetowy sprzedający ubrania
+# Technologie:
+* MongoDB
+* Frontend: Angular, HTML, CSS, TypeScript
+* Backend: Node.js, Express.js, Mongoose
 
-Technologie: MongoDB, Angular
+# Autorzy
+Maciej Nessel, Sebastian Misztal
