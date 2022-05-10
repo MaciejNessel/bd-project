@@ -18,7 +18,7 @@ import { HeaderComponent } from './header/header.component';
     ProductCardComponent,
     ProductDetailsComponent,
     ShoppingCartComponent,
-    HeaderComponent
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,43 @@
-<p>shopping-cart works!</p>
+<div class="cartContainer">
+  <h1>Koszyk</h1>
+
+  <table class="table">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Cena jednostkowa</th>
+      <th scope="col">Ilość</th>
+      <th scope="col"></th>
+      <th scope="col">Razem</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let item of productsService.itemsInCart; let i = index">
+    <tr>
+      <th scope="row">{{i+1}}</th>
+      <td>{{item.item.name}}</td>
+      <td>{{item.item.price}}</td>
+      <td>
+        <div class="input-group ">
+          <input class="form-control" type="text" value="{{item.quantity}}" disabled>
+          <div class="input-group-append small">
+            <button class="btn btn-light" (click)="productsService.increaseNoItemInCart(item.item)"><i class="fa fa-plus"></i></button>
+            <button class="btn btn-light" (click)="productsService.decreaseNoItemInCart(item.item)"><i class="fa fa-minus"></i></button>
+          </div>
+        </div>
+      </td>
+      <td><button class="btn btn-light" (click)="productsService.removeItemFromCart(item.item)"><i class="fa fa-trash-o"></i></button></td>
+      <td>{{item.item.price * item.quantity}}</td>
+    </tr>
+    </tbody>
+  </table>
+
+  <div style="text-align: center" *ngIf="productsService.itemsInCart.length<1">Koszyk jest pusty.</div>
+  <hr>
+
+  <div>
+    <h4 >Razem: {{productsService.resultPrice | currency: ''}}</h4>
+    <button (click)="makeOrder()" class="btn btn-primary">Złóż zamówienie</button>
+  </div>
+
+</div>

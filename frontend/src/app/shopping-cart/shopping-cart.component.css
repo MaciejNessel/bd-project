@@ -1,0 +1,10 @@
+.cartContainer{
+  position: relative;
+  width: 80vw;
+  margin: auto;
+  padding: 50px;
+}
+.cartContainer> *{
+  margin-top: 30px;
+}
+

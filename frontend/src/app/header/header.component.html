@@ -6,13 +6,13 @@
   <div class="collapse navbar-collapse" id="navbarNavDropdown">
     <ul class="navbar-nav">
       <li class="nav-item">
-        <a class="nav-link" href="#">Lista produktów<span class="sr-only">(current)</span></a>
+        <a class="nav-link" (click)="getProductList()">Lista produktów<span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Koszyk</a>
+        <a class="nav-link" (click)="getCart()">Koszyk <div class="cartCounter">{{productService.noItemsInCart}}</div></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Logowanie</a>
+        <a class="nav-link">Logowanie</a>
       </li>
     </ul>
   </div>

@@ -2,6 +2,8 @@
   <div class="card-body">
     <h5 class="card-title">{{item.name}}</h5>
     <p class="card-text">{{item.description}}</p>
-    <a href="#" class="btn btn-primary">Dodaj do koszyka</a>
+    <p class="card-text">dostępne: {{quantity}} szt.</p>
+    <button (click)="addToCart()" class="btn btn-primary">Dodaj do koszyka</button>
+    <a >Szczegóły</a>
   </div>
 </div>
