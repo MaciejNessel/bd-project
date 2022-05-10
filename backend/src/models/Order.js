@@ -13,10 +13,17 @@ const orderSchema = new Schema( {
     quantity: {
         type: Number,
         min: 1,
+        required: true
     },
     price: {
         type: Number,
         min: 0.01,
+        required: true
+    },
+    size: {
+        type: String,
+        enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        required: true
     }});
 
 const Order = mongoose.model('Order', orderSchema)

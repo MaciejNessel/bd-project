@@ -20,6 +20,18 @@ const createOrder = (req, res, next) => {
     })
 }
 
+const readAllOrders = (req, res, next) => {
+    Order.find().then(response => {
+        res.json({
+            response
+        })
+    }).catch(error =>{
+        res.json({
+            message: error.name +": "+ error.message
+        })
+    })
+}
+
 module.exports = {
-    createOrder
+    createOrder, readAllOrders
 }
