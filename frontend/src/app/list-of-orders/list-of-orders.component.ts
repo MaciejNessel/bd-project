@@ -50,8 +50,8 @@ export class ListOfOrdersComponent implements OnInit {
   constructor(private productService: ProductsService) {
     this.productService.fetchOrders().subscribe({
       next: data => {
-        console.log(data)
-        alert("Ok");
+        console.log(data.history)
+        this.orderList = data.history;
       },
       error: error => {
         console.error('There was an error!', error);

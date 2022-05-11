@@ -29,31 +29,42 @@ const createOrder = async (req, res, next) => {
     })
 }
 
-const readAllOrdersByUser = (req, res, next) => {
-    var resultPrice = 0;
-    Order.find({'user_id' : req.body.user_id}).then(response => {
-        response.array.forEach(element => {
-            console.log(element);
-        });
+const readAllOrdersByUser = async (req, res, next) => {
+    let history = []
 
-
-        /*response.products.array.forEach(element => {
-            resultPrice += element.price * element.quantity;
-            Item.findById(element.item_id).then(res=>{
-                element.name = res.name;
+    Order.find({user_id: req.body.user_id}).then(response => {
+        response.forEach(element => {
+            let order = {
+                order_id: element._id,
+                date: element.date,
+                resultPrice: null,
+                status: element.status,
+                products: []
+            }
+            let resultPrice = 0;
+            element.products.forEach(item => {
+                let singleItem = {
+                    name: null,
+                    price: null,
+                    quantity: null
+                };
+                resultPrice += item.price * item.quantity;
+                Item.findById(item.item_id).then(res => {
+                    singleItem.name = res.name;
+                    singleItem.price = res.price;
+                    singleItem.quantity = res.quantity;
+                });
+                order.products.push(singleItem);
             })
+            order.resultPrice = resultPrice;
+            history.push(order);
         });
-        response.resultPrice = resultPrice;
-        */
-        
-        
-        console.log(response);
         res.json({
-            response
+            history
         })
-    }).catch(error =>{
+    }).catch(error => {
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name + ": " + error.message
         })
     })
 }

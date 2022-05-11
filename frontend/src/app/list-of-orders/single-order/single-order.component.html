@@ -6,11 +6,11 @@
       <div class="order-details">
         <span>{{product.name}}</span>
         <span>{{product.quantity}} szt</span>
-        <span>{{product.price.toFixed(2)}} zł</span>
+        <span>{{product.price?.toFixed(2)}} zł</span>
       </div>
     </li>
   </ul>
 </td>
 <td>{{status}}</td>
-<td>{{order.resultPrice.toFixed(2)}}</td>
+<td>{{order.resultPrice?.toFixed(2)}}</td>
 
