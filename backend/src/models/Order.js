@@ -1,14 +1,11 @@
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
+const Item = require('./Item');
 const Schema = mongoose.Schema
 
-const orderSchema = new Schema( {
-    user_id: {
-        type: Schema.Types.ObjectId,
-        required: true,
-    },
+const item_in_orderSchema = new Schema({
     item_id: {
-        type: Schema.Types.ObjectId,
-        required: true,
+        type: String,
+        required: true
     },
     quantity: {
         type: Number,
@@ -16,13 +13,32 @@ const orderSchema = new Schema( {
         required: true
     },
     price: {
-        type: Number,
+        type: [Number],
         min: 0.01,
         required: true
-    },
+    },      //gender zawiera sie w item
     size: {
         type: String,
         enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
+        required: true
+    }
+})
+
+const orderSchema = new Schema( {
+    user_id: {
+        type: Schema.Types.ObjectId,
+        required: true,
+    },
+    date: {
+        type: Date,
+        required: true
+    },
+    status: {
+        type: String,
+        enum: ['unpaid', 'paid', 'cancelled']
+    },
+    products: {
+        type: [item_in_orderSchema],
         required: true
     }});
 

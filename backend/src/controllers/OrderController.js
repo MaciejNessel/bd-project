@@ -1,13 +1,19 @@
+const Item = require('../models/Item')
 const Order = require('../models/Order')
-
+const User = require('../models/User')
 
 const createOrder = (req, res, next) => {
+
+    // Set up pricing
+    req.body.products.forEach(element => {
+        element.price = Item.findOne({'_id': element.item_id}).select('price');
+    })
+
     const orderData = new Order({
-        name: req.body.name,
-        description: req.body.description,
-        type: req.body.type,
-        quantity_in_stock: req.body.quantity_in_stock,
-        gender: req.body.gender
+        user_id: req.body.user_id,
+        date: new Date(),
+        status: 'unpaid',
+        products: req.body.products
     })
     orderData.save().then(response => {
         res.json({
@@ -21,7 +27,15 @@ const createOrder = (req, res, next) => {
 }
 
 const readAllOrders = (req, res, next) => {
-    Order.find().then(response => {
+    Order.find({'user_id' : req.body.user_id}).then(response => {
+        
+        // Set up resultPrice and add name
+        var resultPrice = 0;
+        response.products.array.forEach(element => {
+            resultPrice += element.price * element.quantity;
+            element.name = Item.findOne({'_id': element.item_id}).select('name');
+        });
+        response.resultPrice = resultPrice;        
         res.json({
             response
         })
