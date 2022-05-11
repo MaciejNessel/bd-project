@@ -27,7 +27,7 @@
         </div>
       </td>
       <td><button class="btn btn-light" (click)="productsService.removeItemFromCart(item.item)"><i class="fa fa-trash-o"></i></button></td>
-      <td>{{item.item.price * item.quantity}}</td>
+      <td>{{(item.item.price * item.quantity).toFixed(2)}}</td>
     </tr>
     </tbody>
   </table>

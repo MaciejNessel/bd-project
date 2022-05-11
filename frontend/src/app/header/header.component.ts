@@ -21,4 +21,12 @@ export class HeaderComponent implements OnInit {
   getProductList() {
     this.router.navigate(['/']);
   }
+
+  getOrders() {
+    this.router.navigate(['/orders']);
+  }
+
+  addNew() {
+    this.router.navigate(['/add-new']);
+  }
 }

@@ -1,0 +1,13 @@
+.order-details{
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  width: 80%;
+}
+
+ul>:nth-child(2n+1){
+  background-color: #f5f5f5;
+}
+
+ul{
+  list-style: none;
+}

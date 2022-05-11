@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="submit()" class="form size-form">
+  <h1>Dodaj nowy produkt</h1>
+
+  <label for="nameInput">Nazwa</label>
+  <input type="text" class="form-control" id="nameInput" formControlName="nameInput">
+
+  <label for="descriptionInput">Opis</label>
+  <textarea class="form-control" id="descriptionInput" rows="3" formControlName="descriptionInput"></textarea>
+
+  <label class="my-1 mr-2" for="typeInput">Typ</label>
+  <select class="custom-select " id="typeInput" formControlName="typeInput">
+    <option selected>Wybierz...</option>
+    <option>Koszule</option>
+    <option>Spodnie</option>
+    <option>...</option>
+  </select>
+
+  <label class="my-1 mr-2" for="sizeInput">Rozmiar</label>
+  <select class="custom-select" id="sizeInput" formControlName="sizeInput">
+    <option selected>Wybierz...</option>
+    <option *ngFor="let size of sizesArray" value="{{size}}">{{size}}</option>
+  </select>
+
+  <label class="my-1 mr-2" for="genderInput">Dla kogo:</label>
+  <select multiple class="form-control" id="genderInput" formControlName="genderInput">
+    <option *ngFor="let gender of gendersArray" value="{{gender}}">{{gender}}</option>
+  </select>
+
+  <label for="quantityInput">Ilość na magazynie:</label>
+  <input type="number" class="form-control" id="quantityInput" min="0" formControlName="quantityInput">
+
+  <label for="priceInput">Cena za sztukę:</label>
+  <input type="number" class="form-control" id="priceInput" min="0" max="1000000" formControlName="priceInput">
+
+  <label for="imgInput">Zdjęcie:</label>
+  <input type="text" class="form-control" id="imgInput" formControlName="imgInput">
+  <hr>
+  <button type="submit" class="btn btn-primary mb-2">Prześlij</button>
+</form>

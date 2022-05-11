@@ -1,0 +1,16 @@
+<div class="orders-container">
+  <h1>Historia zamówień</h1>
+  <table class="table">
+    <tr>
+      <th>Numer zamówienia</th>
+      <th>Data złożenia</th>
+      <th>Zawartość zamówienia</th>
+      <th>Status realizacji</th>
+      <th>Wartość brutto</th>
+    </tr>
+
+    <tr *ngFor="let order of orderList" app-single-order [order]="order">
+    </tr>
+
+  </table>
+</div>

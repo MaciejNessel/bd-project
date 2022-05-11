@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Item} from "../models/Item";
-import {HttpClient} from '@angular/common/http';
-import {cartItem} from "../models/CartItem";
+import {Item} from "../models/item";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
+import {cartItem} from "../models/cart-item";
+import {catchError, Observable, throwError} from "rxjs";
+import {OrderNew} from "../models/order-new";
+import {OrderHistory} from "../models/order-history";
 
 
 @Injectable({
@@ -14,6 +17,13 @@ export class ProductsService {
   noItemsInCart: number = 0;
   resultPrice: number = 0;
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      Authorization: 'my-auth-token'
+    })
+  };
+
   constructor(private http: HttpClient) {
     this.fetchItems().then(res => {})
   }
@@ -25,6 +35,10 @@ export class ProductsService {
           this.items = data.response},
       (error => {console.log(error)}))
     }
+
+  fetchOrders(): Observable<any>{
+    return this.http.get<OrderHistory[]>('http://localhost:2137/order');
+  }
 
   addToCart(item: Item) {
     for (let i of this.itemsInCart){
@@ -40,6 +54,31 @@ export class ProductsService {
     this.countResultCartInfo();
   }
 
+  private handleError(error: HttpErrorResponse) {
+    if (error.status === 0) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong.
+      console.error(
+        `Backend returned code ${error.status}, body was: `, error.error);
+    }
+    // Return an observable with a user-facing error message.
+    return throwError(() => new Error('Something bad happened; please try again later.'));
+  }
+
+    makeOrderSend(body: any){
+    this.http.post<OrderNew>('http://localhost:2137/order/create', body).subscribe({
+      next: data => {
+        alert("Zamówienie zostało poprawnie złożone");
+      },
+        error: error => {
+        console.error('There was an error!', error);
+      }
+    });
+  }
+
   makeOrder() {
     if(this.itemsInCart.length<1){
       alert("Nie dodano żadnych produktów do koszyka!");
@@ -48,15 +87,17 @@ export class ProductsService {
     for(let i of this.itemsInCart){
       itemsToBuy.push({
         product_id: i.item._id,
-        quantity: i.quantity
+        quantity: i.quantity,
+        size: i.item.size
       })
     }
     const body = {
-      user_id: "const",
+      user_id: "user_test_id",
       products: itemsToBuy
     }
-    console.log("Order made.");
+    console.log("OrderHistory made.");
     console.log(body);
+    this.makeOrderSend(body);
     this.itemsInCart = []
     this.countResultCartInfo();
   }
@@ -121,5 +162,18 @@ export class ProductsService {
       }
     }
     return 0;
+  }
+
+  addItem(newItem: Item) {
+    this.http.post<Item>('http://localhost:2137/item/create', newItem).subscribe({
+      next: data => {
+        alert("Produkt został poprawnie wprowadzony.");
+        console.log(data)
+      },
+      error: error => {
+        alert("Wystąpiły komplikacje...");
+        console.error('There was an error!', error);
+      }
+    });
   }
 }

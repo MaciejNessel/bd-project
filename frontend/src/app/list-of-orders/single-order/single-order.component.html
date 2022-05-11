@@ -1,0 +1,16 @@
+<td>{{order.order_id}}</td>
+<td>{{order.date}}</td>
+<td>
+  <ul>
+    <li *ngFor="let product of order.products">
+      <div class="order-details">
+        <span>{{product.name}}</span>
+        <span>{{product.quantity}} szt</span>
+        <span>{{product.price.toFixed(2)}} zł</span>
+      </div>
+    </li>
+  </ul>
+</td>
+<td>{{status}}</td>
+<td>{{order.resultPrice.toFixed(2)}}</td>
+
