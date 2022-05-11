@@ -17,7 +17,7 @@ const createOrder = (req, res, next) => {
     })
     orderData.save().then(response => {
         res.json({
-            message: 'Order added successfully'
+            message: 'OrderHistory added successfully'
         })
     }).catch(error => {
         res.json({

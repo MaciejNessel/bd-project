@@ -10,6 +10,10 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 import {HttpClientModule} from "@angular/common/http";
 import { HeaderComponent } from './header/header.component';
+import { ListOfOrdersComponent } from './list-of-orders/list-of-orders.component';
+import { AddItemComponent } from './add-item/add-item.component';
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import { SingleOrderComponent } from './list-of-orders/single-order/single-order.component';
 
 @NgModule({
   declarations: [
@@ -19,11 +23,17 @@ import { HeaderComponent } from './header/header.component';
     ProductDetailsComponent,
     ShoppingCartComponent,
     HeaderComponent,
+    ListOfOrdersComponent,
+    AddItemComponent,
+    SingleOrderComponent,
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
