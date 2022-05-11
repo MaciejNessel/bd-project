@@ -2,12 +2,14 @@ const Item = require('../models/Item')
 const Order = require('../models/Order')
 const User = require('../models/User')
 
-const createOrder = (req, res, next) => {
 
+const createOrder = async (req, res, next) => {
     // Set up pricing
-    req.body.products.forEach(element => {
-        element.price = Number(Item.findOne({'_id': element.item_id}).select('price'));
-    })
+    for (const element of req.body.products) {
+        await Item.findById(element.item_id).then(res=>{
+            element.price = res.price;
+        })
+    }
 
     const orderData = new Order({
         user_id: req.body.user_id,
@@ -15,25 +17,27 @@ const createOrder = (req, res, next) => {
         status: 'unpaid',
         products: req.body.products
     })
+
     orderData.save().then(response => {
         res.json({
             message: 'OrderHistory added successfully'
         })
     }).catch(error => {
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name + ": " + error.message
         })
     })
 }
 
-const readAllOrders = (req, res, next) => {
-
+const readAllOrdersByUser = (req, res, next) => {
+    var resultPrice = 0;
     Order.find({'user_id' : req.body.user_id}).then(response => {
         // Set up resultPrice and add name
-        var resultPrice = 0;
         response.products.array.forEach(element => {
             resultPrice += element.price * element.quantity;
-            element.name = Item.findOne({'_id': element.item_id}).select('name');
+            Item.findById(element.item_id).then(res=>{
+                element.name = res.name;
+            })
         });
         response.resultPrice = resultPrice;
         console.log(response);
@@ -48,5 +52,5 @@ const readAllOrders = (req, res, next) => {
 }
 
 module.exports = {
-    createOrder, readAllOrders
+    createOrder, readAllOrders: readAllOrdersByUser
 }
