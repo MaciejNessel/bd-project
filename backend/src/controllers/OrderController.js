@@ -32,14 +32,21 @@ const createOrder = async (req, res, next) => {
 const readAllOrdersByUser = (req, res, next) => {
     var resultPrice = 0;
     Order.find({'user_id' : req.body.user_id}).then(response => {
-        // Set up resultPrice and add name
-        response.products.array.forEach(element => {
+        response.array.forEach(element => {
+            console.log(element);
+        });
+
+
+        /*response.products.array.forEach(element => {
             resultPrice += element.price * element.quantity;
             Item.findById(element.item_id).then(res=>{
                 element.name = res.name;
             })
         });
         response.resultPrice = resultPrice;
+        */
+        
+        
         console.log(response);
         res.json({
             response
