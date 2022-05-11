@@ -15,6 +15,9 @@ const createOrder = (req, res, next) => {
         status: 'unpaid',
         products: req.body.products
     })
+
+    print("test")
+
     orderData.save().then(response => {
         res.json({
             message: 'OrderHistory added successfully'

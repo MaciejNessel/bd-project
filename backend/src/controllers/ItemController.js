@@ -34,7 +34,9 @@ const createItem = (req, res, next) => {
         description: req.body.description,
         type: req.body.type,
         quantity_in_stock: req.body.quantity_in_stock,
-        gender: req.body.gender
+        gender: req.body.gender,
+        size: req.body.size,
+        price: req.body.price
     })
     itemData.save().then(response => {
         res.json({
@@ -56,7 +58,9 @@ const updateItem = (req, res, next) => {
         description: req.body.description,
         type: req.body.type,
         quantity_in_stock: req.body.quantity_in_stock,
-        gender: req.body.gender
+        gender: req.body.gender,
+        size: req.body.size,
+        price: req.body.price
     }
     Item.findOneAndUpdate(itemID, {$set: updatedItemData}).then(() => {
         res.json({

@@ -24,7 +24,8 @@ const itemSchema = new Schema( {
         required: true
     },
     size: {
-        type: Array,
+        type: String,
+        enum: ['XS', 'S', 'M', 'L', 'XL', 'XXL'],
         required: true      //trigger for arrays
     },
     price: {

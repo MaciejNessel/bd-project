@@ -9,3 +9,4 @@
 # dependencies
 /frontend/node_modules
 /frontend/.angular
+backend/package-lock.json
