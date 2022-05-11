@@ -26,7 +26,7 @@ const item_in_orderSchema = new Schema({
 
 const orderSchema = new Schema( {
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
     date: {
