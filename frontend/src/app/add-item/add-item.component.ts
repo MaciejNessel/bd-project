@@ -40,13 +40,14 @@ export class AddItemComponent implements OnInit {
       type: this.form.value.typeInput,
       size: this.form.value.sizeInput,
       quantity_in_stock: this.form.value.quantityInput,
-      gender: this.form.value.genderInput[0].toString(),
+      gender: this.form.value.genderInput,
       price: this.form.value.priceInput,
       image_url: this.form.value.imgInput
     };
   }
 
   submit() {
+    console.log(this.newItem);
     if (this.form.invalid){
       alert("Uzupełnij wszystkie pola!");
       return;

@@ -19,13 +19,13 @@ const itemSchema = new Schema( {
         required: true,
     },
     gender: {
-        type: String,
-        enum: ['woman', 'men', 'kids', 'helikopter bojowy'],
+        type: [String],
+        enum: ['woman', 'man', 'kid'],
         required: true
     },
     size: {
         type: Array,
-        required: true      //trigger for arrays
+        required: true
     }});
 
 const Item = mongoose.model('Item', itemSchema)
