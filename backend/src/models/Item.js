@@ -25,6 +25,11 @@ const itemSchema = new Schema( {
     },
     size: {
         type: Array,
+        required: true      //trigger for arrays
+    },
+    price: {
+        type: Number,
+        min: 0.01,
         required: true
     }});
 
