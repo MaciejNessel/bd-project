@@ -48,10 +48,15 @@ export class ListOfOrdersComponent implements OnInit {
   ]
 
   constructor(private productService: ProductsService) {
-    this.productService.fetchOrders().subscribe((data: OrderHistory[]) => {
-        // @ts-ignore
-        this.orderList = data.response},
-      (error => {console.log(error)}))
+    this.productService.fetchOrders().subscribe({
+      next: data => {
+        console.log(data)
+        alert("Ok");
+      },
+      error: error => {
+        console.error('There was an error!', error);
+      }
+    });
   }
 
   ngOnInit(): void {

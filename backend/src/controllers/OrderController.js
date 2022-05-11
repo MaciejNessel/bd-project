@@ -6,7 +6,7 @@ const createOrder = (req, res, next) => {
 
     // Set up pricing
     req.body.products.forEach(element => {
-        element.price = Item.findOne({'_id': element.item_id}).select('price');
+        element.price = Number(Item.findOne({'_id': element.item_id}).select('price'));
     })
 
     const orderData = new Order({
@@ -27,15 +27,16 @@ const createOrder = (req, res, next) => {
 }
 
 const readAllOrders = (req, res, next) => {
+
     Order.find({'user_id' : req.body.user_id}).then(response => {
-        
         // Set up resultPrice and add name
         var resultPrice = 0;
         response.products.array.forEach(element => {
             resultPrice += element.price * element.quantity;
             element.name = Item.findOne({'_id': element.item_id}).select('name');
         });
-        response.resultPrice = resultPrice;        
+        response.resultPrice = resultPrice;
+        console.log(response);
         res.json({
             response
         })

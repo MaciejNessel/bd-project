@@ -4,7 +4,6 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {cartItem} from "../models/cart-item";
 import {catchError, Observable, throwError} from "rxjs";
 import {OrderNew} from "../models/order-new";
-import {OrderHistory} from "../models/order-history";
 
 
 @Injectable({
@@ -23,6 +22,7 @@ export class ProductsService {
       Authorization: 'my-auth-token'
     })
   };
+  private user_id: any = "user_id";
 
   constructor(private http: HttpClient) {
     this.fetchItems().then(res => {})
@@ -37,21 +37,10 @@ export class ProductsService {
     }
 
   fetchOrders(): Observable<any>{
-    return this.http.get<OrderHistory[]>('http://localhost:2137/order');
-  }
-
-  addToCart(item: Item) {
-    for (let i of this.itemsInCart){
-      if(i.item == item){
-        this.increaseNoItemInCart(item);
-        return;
-      }
+    const body = {
+      user_id: this.user_id
     }
-    this.itemsInCart.push({
-      item: item,
-      quantity: 1
-    });
-    this.countResultCartInfo();
+    return this.http.post<any>('http://localhost:2137/order', body);
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -69,8 +58,10 @@ export class ProductsService {
   }
 
     makeOrderSend(body: any){
+    console.log(body);
     this.http.post<OrderNew>('http://localhost:2137/order/create', body).subscribe({
       next: data => {
+        console.log(data)
         alert("Zamówienie zostało poprawnie złożone");
       },
         error: error => {
@@ -79,20 +70,36 @@ export class ProductsService {
     });
   }
 
+  addToCart(item: Item) {
+    for (let i of this.itemsInCart){
+      if(i.item == item){
+        this.increaseNoItemInCart(item);
+        return;
+      }
+    }
+    this.itemsInCart.push({
+      item: item,
+      quantity: 1
+    });
+    this.countResultCartInfo();
+  }
+
   makeOrder() {
     if(this.itemsInCart.length<1){
       alert("Nie dodano żadnych produktów do koszyka!");
+      return;
     }
     const itemsToBuy = []
     for(let i of this.itemsInCart){
+      console.log(i);
       itemsToBuy.push({
-        product_id: i.item._id,
+        item_id: i.item._id,
         quantity: i.quantity,
         size: i.item.size
       })
     }
     const body = {
-      user_id: "user_test_id",
+      user_id: this.user_id,
       products: itemsToBuy
     }
     console.log("OrderHistory made.");
@@ -169,6 +176,7 @@ export class ProductsService {
       next: data => {
         alert("Produkt został poprawnie wprowadzony.");
         console.log(data)
+        console.log(newItem)
       },
       error: error => {
         alert("Wystąpiły komplikacje...");

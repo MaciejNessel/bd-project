@@ -24,7 +24,7 @@ const itemSchema = new Schema( {
         required: true
     },
     size: {
-        type: Array,
+        type: String,
         required: true      //trigger for arrays
     },
     price: {

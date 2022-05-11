@@ -34,7 +34,9 @@ const createItem = (req, res, next) => {
         description: req.body.description,
         type: req.body.type,
         quantity_in_stock: req.body.quantity_in_stock,
-        gender: req.body.gender
+        gender: req.body.gender,
+        price: req.body.price,
+        size: req.body.size
     })
     itemData.save().then(response => {
         res.json({

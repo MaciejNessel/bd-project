@@ -13,7 +13,7 @@ const item_in_orderSchema = new Schema({
         required: true
     },
     price: {
-        type: [Number],
+        type: Number,
         min: 0.01,
         required: true
     },      //gender zawiera sie w item
@@ -26,7 +26,7 @@ const item_in_orderSchema = new Schema({
 
 const orderSchema = new Schema( {
     user_id: {
-        type: Schema.Types.ObjectId,
+        type: String,
         required: true,
     },
     date: {
