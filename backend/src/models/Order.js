@@ -1,6 +1,9 @@
 const mongoose = require('mongoose');
 const Item = require('./Item');
+const User = require('./User');
 const Schema = mongoose.Schema
+var ValidationError = mongoose.Error.ValidationError;
+var ValidatorError  = mongoose.Error.ValidatorError;
 
 const item_in_orderSchema = new Schema({
     item_id: {
@@ -41,6 +44,78 @@ const orderSchema = new Schema( {
         type: [item_in_orderSchema],
         required: true
     }});
+
+
+async function validateOrder(next)
+{
+    
+    //  this = document. Bcs type is 'validate'
+    //  user check
+    /*if(! await User.exists({user_id: this.user_id}))
+    {
+        var error = new ValidationError(this);
+        error.errors.user = new ValidationError('user_id', 'user_id is not valid', 'notvalid', this.user_id);
+        console.log("nain3");
+        return error;
+    }*/
+
+    //  quantity check & item check
+    await new Promise((resolve, reject) => {
+        let _products = {};
+        console.log(this.products);
+        this.products.forEach(async product =>{
+            console.log(_products[product.item_id]);
+            if(_products[product.item_id] == undefined)
+            {
+                _products[product.item_id] = product.quantity;
+            }
+            else
+            {
+                _products[product.item_id] += product.quantity;
+            }
+
+            if(! await Item.exists({item_id: product.product_id}))
+            {
+                var error = new ValidationError(this);
+                return error;
+            }
+        })
+    })
+    await new Promise((resolve, reject) => { 
+        Object.keys(_products).forEach(async product_id =>{
+            await Item.findById(product_id).then(async item =>{
+                console.log(_products);
+                if(item.quantity_in_stock < _products[product_id])
+                {
+                    var error = new ValidationError(this);
+                    return next(error);
+                }
+            });
+        });
+    })
+}
+
+orderSchema.pre('validate', validateOrder)
+
+async function saveOrder()
+{
+    //  this = document. Bcs type is 'save'
+    //  change Item quantity in stock
+    let products = {};
+    this.products.forEach(product =>{
+        if(products[product.item_id] != 0)
+            products[product.item_id] = product.quantity;
+        else
+            products[product.item_id] += product.quantity;
+    })
+    await Object.keys(products).forEach(async product_id =>{
+        await Item.findById(product_id).then(async res=>{
+            await Item.findByIdAndUpdate(product_id, { $set: {quantity_in_stock: res.quantity_in_stock - products[product_id]}})
+        });
+    });
+}
+
+orderSchema.post('save', saveOrder)
 
 const Order = mongoose.model('Order', orderSchema)
 module.exports = Order
