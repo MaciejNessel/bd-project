@@ -60,38 +60,43 @@ async function validateOrder(next)
     }*/
 
     //  quantity check & item check
-    await new Promise((resolve, reject) => {
-        let _products = {};
-        console.log(this.products);
-        this.products.forEach(async product =>{
-            console.log(_products[product.item_id]);
-            if(_products[product.item_id] == undefined)
-            {
-                _products[product.item_id] = product.quantity;
-            }
-            else
-            {
-                _products[product.item_id] += product.quantity;
-            }
+    let _products = {};
+    this.products.forEach(async product =>{
+        if(_products[product.item_id] == undefined)
+        {
+            _products[product.item_id] = product.quantity;
+        }
+        else
+        {
+            _products[product.item_id] += product.quantity;
+        }
 
-            if(! await Item.exists({item_id: product.product_id}))
-            {
-                var error = new ValidationError(this);
-                return error;
-            }
-        })
+        if(! await Item.exists({item_id: product.product_id}))
+        {
+            var error = new ValidationError(this);
+            return error;
+        }
     })
-    await new Promise((resolve, reject) => { 
+    let count = Object.keys(_products).length;
+    let count_ = 0;
+    
+    return await new Promise((resolve, reject) => {
         Object.keys(_products).forEach(async product_id =>{
-            await Item.findById(product_id).then(async item =>{
-                console.log(_products);
+            
+            await Item.findById(product_id).then(item =>{
+                count_++;
                 if(item.quantity_in_stock < _products[product_id])
                 {
                     var error = new ValidationError(this);
-                    return next(error);
+                    reject(error)
                 }
-            });
-        });
+            }).then(() => {
+                if(count_ == count)
+                {
+                    resolve();
+                }
+            })
+        })
     })
 }
 

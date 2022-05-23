@@ -1,5 +1,21 @@
 const Item = require('../models/Item')
 
+// Show list of all available items
+const readAllAvailableItems = (req, res, next) => {
+    let startAt = 0;
+    let limitTo = 5;
+
+    Item.find({quantity_in_stock: {$gt: 0}}, null, {sort: {name: 'asc'}, skip: startAt, limit: limitTo}).then(response => {
+        res.json({
+            response
+        })
+    }).catch(error => {
+        res.json({
+            message: error.name + ": " + error.message
+        })
+    })
+}
+
 // Show list of items
 const readAllItems = (req, res, next) => {
     Item.find().then(response => {
@@ -89,5 +105,5 @@ const deleteItem = (req, res, next) => {
 
 
 module.exports = {
-    readAllItems, readOneItem, deleteItem, updateItem, createItem
+    readAllItems, readOneItem, deleteItem, updateItem, createItem, readAllAvailableItems
 }

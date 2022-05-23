@@ -3,7 +3,7 @@ const router = express.Router()
 
 const ItemController = require('../controllers/ItemController')
 
-router.get('/', ItemController.readAllItems)
+router.get('/', ItemController.readAllAvailableItems)
 router.post('/read', ItemController.readOneItem)
 router.post('/create', ItemController.createItem)
 router.post('/update', ItemController.updateItem)

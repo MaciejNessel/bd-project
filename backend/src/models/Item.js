@@ -16,6 +16,7 @@ const itemSchema = new Schema( {
     },
     quantity_in_stock: {
         type: Number,
+        min: 0,
         required: true,
     },
     gender: {
