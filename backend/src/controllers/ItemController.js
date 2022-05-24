@@ -6,11 +6,11 @@ const readAvailableItemsOfPage = (req, res, next) => {
     let startAt = 0;
     let limitTo = 5;
 
-    if(typeof req.body.page !== 'undefined')
-        startAt = (req.body.page - 1) * req.body.limit;
-
     if(typeof req.body.limit !== 'undefined')
         limitTo = req.body.limit;
+
+    if(typeof req.body.page !== 'undefined')
+        startAt = (req.body.page - 1) * req.body.limit;
 
     let filter = 
     {
