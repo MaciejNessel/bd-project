@@ -6,8 +6,8 @@ import {User} from "../models/user";
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  templateUrl: './registration.component.html',
+  styleUrls: ['./registration.component.css']
 })
 export class RegistrationComponent implements OnInit {
   form!: FormGroup;

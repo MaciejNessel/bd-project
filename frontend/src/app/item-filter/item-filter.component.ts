@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {CartService} from "../services/cart.service";
-import {Item} from "../models/item";
 import {sizesArray} from "../models/item-sizes";
 import {gendersArray} from "../models/item-genders";
+import {ItemFilterPaginationService} from "../services/item-filter-pagination.service";
+import {FilterItem} from "../models/filterItem";
 
 @Component({
   selector: 'app-item-filter',
@@ -15,7 +15,7 @@ export class ItemFilterComponent implements OnInit {
   gendersArray = gendersArray;
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private productService: CartService) {
+  constructor(private formBuilder: FormBuilder, private itemFilterPaginationService: ItemFilterPaginationService) {
   }
 
   ngOnInit(): void {
@@ -30,19 +30,19 @@ export class ItemFilterComponent implements OnInit {
     });
   }
 
-  get item() {
+  get item() :FilterItem {
     return {
       name: this.form.value.nameInput,
       type: this.form.value.typeInput,
       size: this.form.value.sizeInput,
       gender: this.form.value.genderInput,
       price_min: this.form.value.priceMinInput,
-      price_max: this.form.value.priceMinInput,
+      price_max: this.form.value.priceMaxInput,
     };
   }
 
   submit() {
     console.log(this.item);
-
+    this.itemFilterPaginationService.newFilter(this.item);
   }
 }

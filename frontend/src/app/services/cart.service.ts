@@ -5,6 +5,7 @@ import {cartItem} from "../models/cart-item";
 import {catchError, Observable, throwError} from "rxjs";
 import {OrderNew} from "../models/order-new";
 import {ServerService} from "./server.service";
+import {ItemFilterPaginationService} from "./item-filter-pagination.service";
 
 
 @Injectable({
@@ -18,7 +19,7 @@ export class CartService {
 
   private user_id: any = this.server.user_id;
 
-  constructor(public server: ServerService) {
+  constructor(public server: ServerService, private itemFilterPaginationService: ItemFilterPaginationService) {
   }
 
   makeOrder() {
@@ -42,6 +43,7 @@ export class CartService {
     this.server.createOrder(body);
     this.itemsInCart = []
     this.countResultCartInfo();
+    this.itemFilterPaginationService.reset();
   }
 
 
