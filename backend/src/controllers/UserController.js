@@ -54,14 +54,17 @@ const login = async (req, res, next) => {
     })
 }
 
-const test = async (req, res, next) => {
-    res.json({
-        user: req.user,
-        status: true,
-        message: "Ok"
-    });
+const auth = async (req, res, next) => {
+    User.findById(req.user).then(userData =>{
+        res.json({
+            firstName: userData.firstName,
+            lastName: userData.lastName,
+            status: true,
+            message: "Ok"
+        });
+    })
 }
 
 module.exports = {
-    register, login, test
+    register, login, auth
 }

@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import {Item} from "../models/item";
-import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {cartItem} from "../models/cart-item";
-import {catchError, Observable, throwError} from "rxjs";
-import {OrderNew} from "../models/order-new";
 import {ServerService} from "./server.service";
 import {ItemFilterPaginationService} from "./item-filter-pagination.service";
+import {AuthService} from "./auth.service";
 
 
 @Injectable({
@@ -29,7 +27,6 @@ export class CartService {
     }
     const itemsToBuy = []
     for(let i of this.itemsInCart){
-      console.log(i);
       itemsToBuy.push({
         item_id: i.item._id,
         quantity: i.quantity,

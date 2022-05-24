@@ -19,7 +19,8 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use(bodyParser.json())
 
 // Fix cors
-app.use(cors())
+
+app.use(cors({credentials: true, origin: true, exposedHeaders: ['auth-token']}))
 
 app.use((err, req, res, next) => {
     console.error(err.stack)
@@ -30,7 +31,6 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
     console.log(`✔ Server is running on PORT ${PORT}`)
 })
-
 
 app.use(`/item`, ItemRoute)
 app.use('/order', OrderRoute)

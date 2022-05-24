@@ -12,7 +12,7 @@ const createOrder = async (req, res, next) => {
     }
 
     const orderData = new Order({
-        user_id: req.body.user_id,
+        user_id: req.user,
         date: new Date(),
         status: 'unpaid',
         products: req.body.products
@@ -51,7 +51,7 @@ const readAllOrdersByUser = async (req, res, next) => {
         pageAmount = Math.ceil(count / limitTo)
     })
 
-    Order.find({user_id: req.body.user_id}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(async ordersByUser => {
+    Order.find({user_id: req.user}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(async ordersByUser => {
         for (const ordersByUserElement of ordersByUser) {
             const resultOrder = {
                 order_id: ordersByUserElement._id,

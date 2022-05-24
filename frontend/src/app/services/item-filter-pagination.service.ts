@@ -40,6 +40,5 @@ export class ItemFilterPaginationService {
   }
 
   reset() {
-    window.location.reload();
   }
 }

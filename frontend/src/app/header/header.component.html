@@ -11,15 +11,24 @@
       <li class="nav-item">
         <a class="nav-link" (click)="getCart()">Koszyk <div class="cartCounter">{{productService.noItemsInCart}}</div></a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="auth.token" class="nav-item">
         <a class="nav-link" (click)="getOrders()">Historia zamówień</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="auth.token" class="nav-item">
         <a class="nav-link" (click)="addNew()">Dodaj nowy przedmiot</a>
       </li>
-      <li class="nav-item">
+      <li *ngIf="!auth.token" class="nav-item">
         <a class="nav-link" (click)="login()">Logowanie</a>
       </li>
+
+      <li *ngIf="auth.token" class="nav-item">
+        <a class="nav-link">Zalogowany jako: {{auth.firstName}} {{auth.lastName}}</a>
+      </li>
+
+      <li *ngIf="auth.token" class="nav-item">
+        <a class="nav-link" (click)="logout()">Wyloguj</a>
+      </li>
+
     </ul>
   </div>
 </nav>

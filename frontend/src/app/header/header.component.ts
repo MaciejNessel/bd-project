@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {CartService} from "../services/cart.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +10,7 @@ import {CartService} from "../services/cart.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public productService: CartService) { }
+  constructor(private router: Router, public productService: CartService, public auth: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -32,5 +33,9 @@ export class HeaderComponent implements OnInit {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  logout() {
+    this.auth.logOut();
   }
 }
