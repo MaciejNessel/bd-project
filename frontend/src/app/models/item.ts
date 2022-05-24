@@ -7,5 +7,5 @@ export interface Item{
   quantity_in_stock: number;
   gender: string;
   price: number;
-  image_url: string;
+  imageURL: string;
 }

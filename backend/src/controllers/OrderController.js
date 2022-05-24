@@ -89,5 +89,5 @@ const readAllOrdersByUser = async (req, res, next) => {
 }
 
 module.exports = {
-    createOrder, readAllOrders: readAllOrdersByUser
+    createOrder, readAllOrdersByUser
 }

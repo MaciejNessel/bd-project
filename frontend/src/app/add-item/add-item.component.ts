@@ -43,7 +43,7 @@ export class AddItemComponent implements OnInit {
       quantity_in_stock: this.form.value.quantityInput,
       gender: this.form.value.genderInput,
       price: this.form.value.priceInput,
-      image_url: this.form.value.imgInput
+      imageURL: this.form.value.imgInput
     };
   }
 

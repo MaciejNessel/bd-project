@@ -1,16 +1,13 @@
 <div class="card" style="width: 18rem;">
   <div class="card-body">
-
+    <img src="{{item.imageURL}}">
     <h4 class="title">
       <span class="card-title">{{item.name}}</span>
       <span class="card-text">{{item.price.toFixed(2)}} zł</span>
     </h4>
-
-
     <p class="card-text">{{item.description}}</p>
-
-    <p class="card-text">dostępne: {{quantity}} szt.</p>
+    <p class="card-text">Rozmiar: {{item.size}}</p>
+    <p class="card-text">Dostępne: {{quantity}} szt.</p>
     <button (click)="addToCart()" class="btn btn-primary">Dodaj do koszyka</button>
-    <a >Szczegóły</a>
   </div>
 </div>

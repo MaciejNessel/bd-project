@@ -10,7 +10,7 @@ import {ItemFilterPaginationService} from "../services/item-filter-pagination.se
 
 export class ListOfProductsComponent implements OnInit {
   actualPage:Number = 0;
-
+  public status = true;
   constructor(public productsService: CartService, public itemPaginationService: ItemFilterPaginationService) {
   }
 
@@ -18,4 +18,7 @@ export class ListOfProductsComponent implements OnInit {
 
   }
 
+  loadMore() {
+    this.status = !this.itemPaginationService.loadMore();
+  }
 }

@@ -15,16 +15,21 @@ export class ItemFilterPaginationService {
     this.loadMore();
   }
 
-  loadMore(){
-    this.currentPage+=1;
+  async loadMore() {
+    const last = this.items;
+    this.currentPage += 1;
     const body = {
       page: this.currentPage,
       limit: this.limit
     };
-    this.server.fetchNextItems(body).subscribe((data: Item[]) => {
+    await this.server.fetchNextItems(body).subscribe((data: Item[]) => {
         // @ts-ignore
-        this.items = this.items.concat(data.response)},
-      (error => {console.log(error)}));
+        this.items = this.items.concat(data.response)
+      },
+      (error => {
+        console.log(error)
+      }));
+    return this.items == last;
   }
 
   newFilter(body: any) {
