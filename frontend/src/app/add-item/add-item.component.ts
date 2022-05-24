@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {CartService} from "../services/cart.service";
 import {Item} from "../models/item";
 import {ServerService} from "../services/server.service";
+import {categoriesArray} from "../models/categories";
 
 
 @Component({
@@ -16,6 +17,7 @@ export class AddItemComponent implements OnInit {
   sizesArray = sizesArray;
   gendersArray = gendersArray;
   form!: FormGroup;
+  categoriesArray = categoriesArray;
 
   constructor(private formBuilder: FormBuilder, private server: ServerService) {
   }

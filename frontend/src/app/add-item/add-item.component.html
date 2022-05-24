@@ -10,9 +10,7 @@
   <label class="my-1 mr-2" for="typeInput">Typ</label>
   <select class="custom-select " id="typeInput" formControlName="typeInput">
     <option selected>Wybierz...</option>
-    <option>Koszule</option>
-    <option>Spodnie</option>
-    <option>...</option>
+    <option *ngFor="let cat of categoriesArray" value="{{cat}}">{{cat}}</option>
   </select>
 
   <label class="my-1 mr-2" for="sizeInput">Rozmiar</label>

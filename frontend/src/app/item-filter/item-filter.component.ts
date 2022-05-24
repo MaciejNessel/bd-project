@@ -4,6 +4,7 @@ import {sizesArray} from "../models/item-sizes";
 import {gendersArray} from "../models/item-genders";
 import {ItemFilterPaginationService} from "../services/item-filter-pagination.service";
 import {FilterItem} from "../models/filterItem";
+import {categoriesArray} from "../models/categories";
 
 @Component({
   selector: 'app-item-filter',
@@ -13,6 +14,7 @@ import {FilterItem} from "../models/filterItem";
 export class ItemFilterComponent implements OnInit {
   sizesArray = sizesArray;
   gendersArray = gendersArray;
+  categoriesArray = categoriesArray;
   form!: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private itemFilterPaginationService: ItemFilterPaginationService) {

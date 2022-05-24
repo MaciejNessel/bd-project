@@ -43,7 +43,7 @@ export class ServerService {
   }
 
   createItem(newItem: Item) {
-    this.http.post<any>('http://localhost:2137/item/create', newItem).subscribe({
+    this.http.post<any>('http://localhost:2137/item/create', newItem, { headers: {'auth-token': this.token.toString()}}).subscribe({
       next: data => {
         if(data.status){
           alert("Produkt został poprawnie wprowadzony.");
