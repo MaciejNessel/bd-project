@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {sizesArray} from "../models/item-sizes";
 import {gendersArray} from "../models/item-genders";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
-import {ProductsService} from "../services/products.service";
+import {CartService} from "../services/cart.service";
 import {Item} from "../models/item";
+import {ServerService} from "../services/server.service";
 
 
 @Component({
@@ -16,7 +17,7 @@ export class AddItemComponent implements OnInit {
   gendersArray = gendersArray;
   form!: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private productService: ProductsService) {
+  constructor(private formBuilder: FormBuilder, private server: ServerService) {
   }
 
   ngOnInit(): void {
@@ -52,7 +53,7 @@ export class AddItemComponent implements OnInit {
       alert("Uzupełnij wszystkie pola!");
       return;
     } else{
-      this.productService.addItem(this.newItem);
+      this.server.createItem(this.newItem);
       //this.form.reset();
       console.log(this.newItem)
     }

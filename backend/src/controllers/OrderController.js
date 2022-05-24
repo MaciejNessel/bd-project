@@ -32,40 +32,37 @@ const createOrder = async (req, res, next) => {
 }
 
 const readAllOrdersByUser = async (req, res, next) => {
-    
     let startAt = (req.body.page - 1) * req.body.limit;
     let limitTo = req.body.limit;
-    
-    let history = []
 
-    Order.find({user_id: req.body.user_id}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(response => {
-        response.forEach(element => {
-            let order = {
-                order_id: element._id,
-                date: element.date,
-                resultPrice: null,
-                status: element.status
+    const resultOrdersList = []
+
+    Order.find({user_id: req.body.user_id}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(async ordersByUser => {
+        for (const ordersByUserElement of ordersByUser) {
+            const resultOrder = {
+                order_id: ordersByUserElement._id,
+                date: ordersByUserElement.date,
+                status: ordersByUserElement.status,
+                products: []
             }
+
             let resultPrice = 0;
-            element.products.forEach(item => {
-                /*let singleItem = {
-                    name: null,
-                    price: null,
-                    quantity: null
-                };*/
+
+            for (const item of ordersByUserElement.products) {
+                const singleItem = {};
                 resultPrice += item.price * item.quantity;
-                /*Item.findById(item.item_id).then(res => {
+                await Item.findById(item.item_id).then(res => {
                     singleItem.name = res.name;
                     singleItem.price = res.price;
-                    singleItem.quantity = res.quantity;
+                    singleItem.quantity = item.quantity;
                 });
-                order.products.push(singleItem);*/
-            })
-            order.resultPrice = resultPrice;
-            history.push(order);
-        });
+                resultOrder.products.push(singleItem);
+            }
+            resultOrder.resultPrice = resultPrice;
+            resultOrdersList.push(resultOrder);
+        }
         res.json({
-            history,
+            history: resultOrdersList,
             status: true
         })
     }).catch(error => {

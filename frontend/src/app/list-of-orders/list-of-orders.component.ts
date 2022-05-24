@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderHistory} from "../models/order-history";
-import {ProductsService} from "../services/products.service";
+import {CartService} from "../services/cart.service";
 import {Item} from "../models/item";
+import {ServerService} from "../services/server.service";
 
 @Component({
   selector: 'app-list-of-orders',
@@ -14,7 +15,7 @@ export class ListOfOrdersComponent implements OnInit {
     {
       order_id: "692137",
       date: "2022-02-02",
-      status: 0,
+      status: "unpaid",
       products: [
         {
           id_: "id",
@@ -34,7 +35,7 @@ export class ListOfOrdersComponent implements OnInit {
     {
       order_id: "666400",
       date: "2022-02-19",
-      status: 3,
+      status: "cancelled",
       products: [
         {
           id_: "id2",
@@ -47,8 +48,8 @@ export class ListOfOrdersComponent implements OnInit {
     }
   ]
 
-  constructor(private productService: ProductsService) {
-    this.productService.fetchOrders().subscribe({
+  constructor(private server: ServerService) {
+    this.server.fetchOrders().subscribe({
       next: data => {
         console.log(data.history)
         this.orderList = data.history;

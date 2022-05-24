@@ -13,7 +13,7 @@ export class SingleOrderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.status = StatusEnum[this.order.status];
+    this.status = this.order.status
   }
 
 }
