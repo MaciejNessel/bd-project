@@ -18,13 +18,19 @@ const readAvailableItemsOfPage = (req, res, next) => {
         filter.name = {$regex: "/*" + req.body.name + "/*"}
 
     if(typeof req.body.type !== 'undefined')
-        filter.type = { $elemMatch: { $in: req.body.type}}
+        filter.type = req.body.type
 
     if(typeof req.body.gender !== 'undefined')
         filter.gender = { $elemMatch: { $in: req.body.gender}}
 
     if(typeof req.body.size !== 'undefined')
         filter.size = req.body.size
+
+    if(typeof req.body.price_min !== 'undefined')
+        price_min = req.body.price_min
+    
+    if(typeof req.body.price_max !== 'undefined')
+        price_max = req.body.price_max
 
     if(price_max == -1)
         filter.price = {
