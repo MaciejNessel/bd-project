@@ -20,19 +20,27 @@ const createOrder = async (req, res, next) => {
 
     orderData.save().then(response => {
         res.json({
-            message: 'OrderHistory added successfully'
+            message: 'Order added successfully',
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name + ": " + error.message
+            message: error.name + ": " + error.message,
+            status: false
         })
     })
 }
 
 const readAllOrdersByUser = async (req, res, next) => {
+    
+    let startAt = (req.body.page - 1) * req.body.limit;
+    let limitTo = req.body.limit;
+
+    
+    
     let history = []
 
-    Order.find({user_id: req.body.user_id}).then(response => {
+    Order.find({user_id: req.body.user_id}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(response => {
         response.forEach(element => {
             let order = {
                 order_id: element._id,
@@ -60,11 +68,13 @@ const readAllOrdersByUser = async (req, res, next) => {
             history.push(order);
         });
         res.json({
-            history
+            history,
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name + ": " + error.message
+            message: error.name + ": " + error.message,
+            status: false
         })
     })
 }

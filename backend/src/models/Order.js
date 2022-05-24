@@ -3,7 +3,6 @@ const Item = require('./Item');
 const User = require('./User');
 const Schema = mongoose.Schema
 var ValidationError = mongoose.Error.ValidationError;
-var ValidatorError  = mongoose.Error.ValidatorError;
 
 const item_in_orderSchema = new Schema({
     item_id: {

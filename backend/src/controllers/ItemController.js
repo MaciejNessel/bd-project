@@ -1,17 +1,19 @@
 const Item = require('../models/Item')
 
 // Show list of all available items
-const readAllAvailableItems = (req, res, next) => {
-    let startAt = 0;
-    let limitTo = 5;
+const readAvailableItemsOfPage = (req, res, next) => {
+    let startAt = (req.body.page - 1) * req.body.limit;
+    let limitTo = req.body.limit;
 
     Item.find({quantity_in_stock: {$gt: 0}}, null, {sort: {name: 'asc'}, skip: startAt, limit: limitTo}).then(response => {
         res.json({
-            response
+            response,
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name + ": " + error.message
+            message: error.name + ": " + error.message,
+            status: false
         })
     })
 }
@@ -20,11 +22,13 @@ const readAllAvailableItems = (req, res, next) => {
 const readAllItems = (req, res, next) => {
     Item.find().then(response => {
         res.json({
-            response
+            response,
+            status: true
         })
     }).catch(error =>{
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name +": "+ error.message,
+            status: false
         })
     })
 }
@@ -34,11 +38,13 @@ const readOneItem = (req, res, next) => {
     let itemID = req.body.itemID;
     Item.findById(itemID).then(response => {
         res.json({
-            response
+            response,
+            status: true
         })
     }).catch(error =>{
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name +": "+ error.message,
+            status: false
         })
     })
 }
@@ -52,15 +58,18 @@ const createItem = (req, res, next) => {
         quantity_in_stock: req.body.quantity_in_stock,
         gender: req.body.gender,
         price: req.body.price,
-        size: req.body.size
+        size: req.body.size,
+        imageURL: req.body.image_url
     })
     itemData.save().then(response => {
         res.json({
-            message: 'Item added successfully'
+            message: 'Item added successfully',
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name +": "+ error.message,
+            status: false
         })
     })
 }
@@ -76,15 +85,18 @@ const updateItem = (req, res, next) => {
         quantity_in_stock: req.body.quantity_in_stock,
         gender: req.body.gender,
         size: req.body.size,
-        price: req.body.price
+        price: req.body.price,
+        imageURL: req.body.image_url
     }
     Item.findOneAndUpdate(itemID, {$set: updatedItemData}).then(() => {
         res.json({
-            message: 'Item updated successfully.'
+            message: 'Item updated successfully.',
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name +": "+ error.message,
+            status: false
         })
     })
 }
@@ -94,16 +106,18 @@ const deleteItem = (req, res, next) => {
     let itemId = req.body.itemID;
     Item.findOneAndRemove(itemId).then(() => {
         res.json({
-            message: 'Item deleted successfully.'
+            message: 'Item deleted successfully.',
+            status: true
         })
     }).catch(error => {
         res.json({
-            message: error.name +": "+ error.message
+            message: error.name +": "+ error.message,
+            status: false
         })
     })
 }
 
 
 module.exports = {
-    readAllItems, readOneItem, deleteItem, updateItem, createItem, readAllAvailableItems
+    readAllItems, readOneItem, deleteItem, updateItem, createItem, readAvailableItemsOfPage
 }

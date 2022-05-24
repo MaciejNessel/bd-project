@@ -33,6 +33,10 @@ const itemSchema = new Schema( {
         type: Number,
         min: 0.01,
         required: true
+    },
+    imageURL: {
+        type: String,
+        required: false
     }});
 
 const Item = mongoose.model('Item', itemSchema)
