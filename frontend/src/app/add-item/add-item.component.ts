@@ -53,7 +53,7 @@ export class AddItemComponent implements OnInit {
       alert("Uzupełnij wszystkie pola!");
       return;
     } else{
-      this.server.addItem(this.newItem);
+      this.server.createItem(this.newItem);
       //this.form.reset();
       console.log(this.newItem)
     }

@@ -5,9 +5,9 @@ import {Item} from "../models/item";
 @Injectable({
   providedIn: 'root'
 })
-export class ItemPaginationService {
+export class ItemFilterPaginationService {
   items: Item[] = [];
-  itemsPerPage: Number = 1;
+  itemsPerPage: Number = 3;
   currentPage = 0;
   constructor(private server: ServerService) { }
 
@@ -18,7 +18,6 @@ export class ItemPaginationService {
       limit: this.itemsPerPage
     };
     this.server.fetchNextItems(body).subscribe((data: Item[]) => {
-        if(data.respo)
         // @ts-ignore
         this.items = this.items.concat(data.response)},
       (error => {console.log(error)}));

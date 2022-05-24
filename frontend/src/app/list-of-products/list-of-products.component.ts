@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CartService} from "../services/cart.service";
-import {ItemPaginationService} from "../services/item-pagination.service";
+import {ItemFilterPaginationService} from "../services/item-filter-pagination.service";
 
 @Component({
   selector: 'app-list-of-products',
@@ -11,7 +11,7 @@ import {ItemPaginationService} from "../services/item-pagination.service";
 export class ListOfProductsComponent implements OnInit {
   actualPage:Number = 0;
 
-  constructor(public productsService: CartService, public itemPaginationService: ItemPaginationService) {
+  constructor(public productsService: CartService, public itemPaginationService: ItemFilterPaginationService) {
   }
 
   ngOnInit(): void {

@@ -15,7 +15,7 @@ export class ListOfOrdersComponent implements OnInit {
     {
       order_id: "692137",
       date: "2022-02-02",
-      status: 0,
+      status: "unpaid",
       products: [
         {
           id_: "id",
@@ -35,7 +35,7 @@ export class ListOfOrdersComponent implements OnInit {
     {
       order_id: "666400",
       date: "2022-02-19",
-      status: 3,
+      status: "cancelled",
       products: [
         {
           id_: "id2",

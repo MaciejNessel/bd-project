@@ -6,7 +6,7 @@ export interface OrderHistory {
   order_id: string,
   date: string,
   resultPrice: number,
-  status: number,
+  status: string,
   products: {
       id_: string,
       name: string,

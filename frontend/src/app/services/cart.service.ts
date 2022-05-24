@@ -39,7 +39,7 @@ export class CartService {
       user_id: this.user_id,
       products: itemsToBuy
     }
-    this.server.makeOrderSend(body);
+    this.server.createOrder(body);
     this.itemsInCart = []
     this.countResultCartInfo();
   }

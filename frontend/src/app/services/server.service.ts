@@ -25,43 +25,33 @@ export class ServerService {
     return this.http.post<any>('http://localhost:2137/order', body);
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.status === 0) {
-      // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error);
-    } else {
-      // The backend returned an unsuccessful response code.
-      // The response body may contain clues as to what went wrong.
-      console.error(
-        `Backend returned code ${error.status}, body was: `, error.error);
-    }
-    // Return an observable with a user-facing error message.
-    return throwError(() => new Error('Something bad happened; please try again later.'));
-  }
-
-  makeOrderSend(body: any){
+  createOrder(body: any){
     console.log(body);
-    this.http.post<OrderNew>('http://localhost:2137/order/create', body).subscribe({
+    this.http.post<any>('http://localhost:2137/order/create', body).subscribe({
       next: data => {
-        console.log(data)
-        alert("Zamówienie zostało poprawnie złożone");
+        if(data.status){
+          alert("Zamówienie zostało poprawnie złożone.");
+        }else{
+          alert("Wystąpił problem ze złożeniem zamówienia... " + data.message);
+        }
       },
       error: error => {
-        console.error('There was an error!', error);
+        alert("Wystąpił problem ze złożeniem zamówienia... " + error);
       }
     });
   }
 
-  addItem(newItem: Item) {
-    this.http.post<Item>('http://localhost:2137/item/create', newItem).subscribe({
+  createItem(newItem: Item) {
+    this.http.post<any>('http://localhost:2137/item/create', newItem).subscribe({
       next: data => {
-        alert("Produkt został poprawnie wprowadzony.");
-        console.log(data)
-        console.log(newItem)
+        if(data.status){
+          alert("Produkt został poprawnie wprowadzony.");
+        }else{
+          alert("Wystąpił problem...");
+        }
       },
       error: error => {
-        alert("Wystąpiły komplikacje...");
-        console.error('There was an error!', error);
+        alert("Wystąpił problem...");
       }
     });
   }
