@@ -35,8 +35,6 @@ const readAllOrdersByUser = async (req, res, next) => {
     
     let startAt = (req.body.page - 1) * req.body.limit;
     let limitTo = req.body.limit;
-
-    
     
     let history = []
 
@@ -46,23 +44,22 @@ const readAllOrdersByUser = async (req, res, next) => {
                 order_id: element._id,
                 date: element.date,
                 resultPrice: null,
-                status: element.status,
-                products: []
+                status: element.status
             }
             let resultPrice = 0;
             element.products.forEach(item => {
-                let singleItem = {
+                /*let singleItem = {
                     name: null,
                     price: null,
                     quantity: null
-                };
+                };*/
                 resultPrice += item.price * item.quantity;
-                Item.findById(item.item_id).then(res => {
+                /*Item.findById(item.item_id).then(res => {
                     singleItem.name = res.name;
                     singleItem.price = res.price;
                     singleItem.quantity = res.quantity;
                 });
-                order.products.push(singleItem);
+                order.products.push(singleItem);*/
             })
             order.resultPrice = resultPrice;
             history.push(order);
