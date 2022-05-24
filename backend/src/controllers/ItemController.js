@@ -2,8 +2,15 @@ const Item = require('../models/Item')
 
 // Show list of all available items
 const readAvailableItemsOfPage = (req, res, next) => {
-    let startAt = (req.body.page - 1) * req.body.limit;
-    let limitTo = req.body.limit;
+
+    let startAt = 0;
+    let limitTo = 5;
+
+    if(typeof req.body.page !== 'undefined')
+        startAt = (req.body.page - 1) * req.body.limit;
+
+    if(typeof req.body.limit !== 'undefined')
+        limitTo = req.body.limit;
 
     let filter = 
     {

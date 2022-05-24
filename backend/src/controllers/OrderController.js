@@ -32,10 +32,23 @@ const createOrder = async (req, res, next) => {
 }
 
 const readAllOrdersByUser = async (req, res, next) => {
-    let startAt = (req.body.page - 1) * req.body.limit;
-    let limitTo = req.body.limit;
+    
+    let startAt = 0;
+    let limitTo = 5;
+
+    if(typeof req.body.page !== 'undefined')
+        startAt = (req.body.page - 1) * req.body.limit;
+
+    if(typeof req.body.limit !== 'undefined')
+        limitTo = req.body.limit;
 
     const resultOrdersList = []
+
+    let pageAmount = 0;
+
+    await Item.countDocuments({}).exec((err, count) => {
+        pageAmount = Math.ceil(count / limitTo)
+    })
 
     Order.find({user_id: req.body.user_id}, null, {sort: {date: 'desc'}, skip: startAt, limit: limitTo}).then(async ordersByUser => {
         for (const ordersByUserElement of ordersByUser) {
@@ -63,6 +76,7 @@ const readAllOrdersByUser = async (req, res, next) => {
         }
         res.json({
             history: resultOrdersList,
+            pageAmount: pageAmount,
             status: true
         })
     }).catch(error => {
