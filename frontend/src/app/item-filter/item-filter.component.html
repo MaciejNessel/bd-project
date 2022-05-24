@@ -1,0 +1,48 @@
+<details>
+  <summary>Filtruj</summary>
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form size-form">
+
+    <div>
+      <label for="nameInput">Nazwa</label>
+      <input type="text" class="form-control" id="nameInput" formControlName="nameInput">
+    </div>
+
+    <div>
+      <label class="my-1 mr-2" for="typeInput">Typ</label>
+      <select class="custom-select " id="typeInput" formControlName="typeInput">
+        <option selected>Wybierz...</option>
+        <option>Koszule</option>
+        <option>Spodnie</option>
+        <option>...</option>
+      </select>
+    </div>
+
+    <div>
+      <label class="my-1 mr-2" for="sizeInput">Rozmiar</label>
+      <select class="custom-select" id="sizeInput" formControlName="sizeInput">
+        <option selected>Wybierz...</option>
+        <option *ngFor="let size of sizesArray" value="{{size}}">{{size}}</option>
+      </select>
+    </div>
+
+  <div>
+    <label class="my-1 mr-2" for="genderInput">Dla kogo:</label>
+    <select multiple class="form-control" id="genderInput" formControlName="genderInput">
+      <option *ngFor="let gender of gendersArray" value="{{gender}}">{{gender}}</option>
+    </select>
+  </div>
+
+
+  <div>
+    <label for="priceMinInput">Cena min:</label>
+    <input type="number" class="form-control" id="priceMinInput" min="0" max="1000000" formControlName="priceMinInput">
+
+  </div>
+  <div>
+    <label for="priceMaxInput">Cena max:</label>
+    <input type="number" class="form-control" id="priceMaxInput" min="0" max="1000000" formControlName="priceMaxInput">
+  </div>
+
+    <button type="submit" class="btn btn-primary mb-2">Filtruj</button>
+  </form>
+</details>

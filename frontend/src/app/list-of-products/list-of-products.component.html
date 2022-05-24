@@ -1,4 +1,8 @@
-<h1>Lista produktów</h1>
-<div class="d-flex justify-content-center" *ngFor="let item of productsService.items">
-  <app-product-card [item]="item"></app-product-card>
+<div class="container">
+  <h1>Lista produktów</h1>
+  <app-item-filter></app-item-filter>
+  <div class="d-flex justify-content-center" *ngFor="let item of itemPaginationService.items">
+    <app-product-card [item]="item"></app-product-card>
+  </div>
+  <button class="btn btn-light" (click)="itemPaginationService.loadMore()" >Załaduj więcej...</button>
 </div>

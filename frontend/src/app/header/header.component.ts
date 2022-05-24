@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {ProductsService} from "../services/products.service";
+import {CartService} from "../services/cart.service";
 
 @Component({
   selector: 'app-header',
@@ -9,7 +9,7 @@ import {ProductsService} from "../services/products.service";
 })
 export class HeaderComponent implements OnInit {
 
-  constructor(private router: Router, public productService: ProductsService) { }
+  constructor(private router: Router, public productService: CartService) { }
 
   ngOnInit(): void {
   }

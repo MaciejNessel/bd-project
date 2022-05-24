@@ -11,18 +11,12 @@ import {ServerService} from "./server.service";
   providedIn: 'root'
 })
 
-export class ProductsService {
+export class CartService {
   itemsInCart: cartItem[] = [];
   noItemsInCart: number = 0;
   resultPrice: number = 0;
 
-  httpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      Authorization: 'my-auth-token'
-    })
-  };
-  private user_id: any = "user_id";
+  private user_id: any = this.server.user_id;
 
   constructor(public server: ServerService) {
   }

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {OrderHistory} from "../models/order-history";
-import {ProductsService} from "../services/products.service";
+import {CartService} from "../services/cart.service";
 import {Item} from "../models/item";
+import {ServerService} from "../services/server.service";
 
 @Component({
   selector: 'app-list-of-orders',
@@ -47,8 +48,8 @@ export class ListOfOrdersComponent implements OnInit {
     }
   ]
 
-  constructor(private productService: ProductsService) {
-    this.productService.fetchOrders().subscribe({
+  constructor(private server: ServerService) {
+    this.server.fetchOrders().subscribe({
       next: data => {
         console.log(data.history)
         this.orderList = data.history;

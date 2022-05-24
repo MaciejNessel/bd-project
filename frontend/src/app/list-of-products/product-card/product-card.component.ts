@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Item} from "../../models/item";
-import {ProductsService} from "../../services/products.service";
+import {CartService} from "../../services/cart.service";
 
 @Component({
   selector: 'app-product-card',
@@ -10,12 +10,12 @@ import {ProductsService} from "../../services/products.service";
 export class ProductCardComponent implements OnInit {
   @Input() item!: Item;
   quantity: number = 0;
-  constructor(private productsService : ProductsService) {
+  constructor(private productsService : CartService) {
   }
 
   ngOnInit(): void {
     this.quantity = this.item.quantity_in_stock;
-    this.quantity -= this.productsService.getQuantity(this.item);
+    this.quantity -= this.productsService.getQuantityItemInCart(this.item);
   }
 
   addToCart() {

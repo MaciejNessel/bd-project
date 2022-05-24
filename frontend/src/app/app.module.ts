@@ -14,6 +14,7 @@ import { ListOfOrdersComponent } from './list-of-orders/list-of-orders.component
 import { AddItemComponent } from './add-item/add-item.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SingleOrderComponent } from './list-of-orders/single-order/single-order.component';
+import { ItemFilterComponent } from './item-filter/item-filter.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { SingleOrderComponent } from './list-of-orders/single-order/single-order
     ListOfOrdersComponent,
     AddItemComponent,
     SingleOrderComponent,
+    ItemFilterComponent,
 
   ],
   imports: [
