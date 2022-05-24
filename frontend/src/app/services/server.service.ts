@@ -11,6 +11,7 @@ export class ServerService {
 
   public user_id: any = "user_id";
 
+
   constructor(private http: HttpClient) {
   }
 
@@ -18,10 +19,9 @@ export class ServerService {
     return this.http.post<Item[]>('http://localhost:2137/item', body);
   }
 
-  fetchOrders(): Observable<any>{
-    const body = {
-      user_id: this.user_id
-    }
+  fetchOrders(body: any): Observable<any>{
+    body.user_id = this.user_id;
+
     return this.http.post<any>('http://localhost:2137/order', body);
   }
 
@@ -54,5 +54,9 @@ export class ServerService {
         alert("Wystąpił problem...");
       }
     });
+  }
+
+  login(body: {password: String; userName: String}) : Observable<any>{
+    return this.http.post<any>('http://localhost:2137/user/login', body);
   }
 }

@@ -15,7 +15,7 @@ export class ListOfProductsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.itemPaginationService.loadMore();
+
   }
 
 }

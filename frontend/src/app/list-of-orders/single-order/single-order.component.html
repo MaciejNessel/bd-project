@@ -1,5 +1,5 @@
 <td>{{order.order_id}}</td>
-<td>{{order.date}}</td>
+<td>{{order.date.split('T', 1)}}</td>
 <td>
   <ul>
     <li *ngFor="let product of order.products">
@@ -12,5 +12,5 @@
   </ul>
 </td>
 <td>{{status}}</td>
-<td>{{order.resultPrice?.toFixed(2)}}</td>
+<td>{{order.resultPrice?.toFixed(2)}} zł</td>
 

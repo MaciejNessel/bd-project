@@ -1,6 +1,6 @@
 .list-container> *{
   display: flex;
 }
-.container{
-
+.container>*{
+  padding: 20px;
 }

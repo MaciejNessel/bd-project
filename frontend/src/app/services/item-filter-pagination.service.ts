@@ -11,7 +11,9 @@ export class ItemFilterPaginationService {
   items: Item[] = [];
   limit: Number = 3;
   currentPage = 0;
-  constructor(private server: ServerService, private router: Router) { }
+  constructor(private server: ServerService, private router: Router) {
+    this.loadMore();
+  }
 
   loadMore(){
     this.currentPage+=1;
