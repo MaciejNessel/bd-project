@@ -5,32 +5,23 @@ const readAvailableItemsOfPage = (req, res, next) => {
     let startAt = (req.body.page - 1) * req.body.limit;
     let limitTo = req.body.limit;
 
-    // {gender: { $elemMatch: { $in: ["kid"] }}}
-
-    let arrayType = []
-    let arrayGender = []
-    let price_min = 0
-    let price_max = -1
-
-
-    if(typeof req.body.type === 'undefined')
-        arrayType = []
-    else
-        arrayType = req.body.type
-
-    if(typeof req.body.gender === 'undefined')
-        arrayGender = []
-    else
-        arrayGender = req.body.gender
-
     let filter = 
     {
-        name: {$regex: "*" + req.body.name + "*"},
-        type: { $elemMatch: { $in: arrayType}},
         quantity_in_stock: {$gt: 0},
-        gender: { $elemMatch: { $in: arrayGender}},
         price: {}
     }
+
+    let price_min = 0
+    let price_max = -1
+    
+    if(typeof req.body.name !== 'undefined')
+        filter.name = {$regex: "/*" + req.body.name + "/*"}
+
+    if(typeof req.body.type !== 'undefined')
+        filter.type = { $elemMatch: { $in: req.body.type}}
+
+    if(typeof req.body.gender !== 'undefined')
+        filter.gender = { $elemMatch: { $in: req.body.gender}}
 
     if(typeof req.body.size !== 'undefined')
         filter.size = req.body.size
@@ -44,6 +35,8 @@ const readAvailableItemsOfPage = (req, res, next) => {
             $gte: price_min,
             $lte: price_max
         }
+
+    console.log(filter)
 
     Item.find(filter, null, {sort: {name: 'asc'}, skip: startAt, limit: limitTo}).then(response => {
         res.json({
