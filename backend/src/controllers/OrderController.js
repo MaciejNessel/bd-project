@@ -33,7 +33,7 @@ const createOrder = async (req, res, next) => {
 
 const readAllOrdersByUser = async (req, res, next) => {
     
-    let startAt = 0;
+    let startAt = 1;
     let limitTo = 5;
 
     if(typeof req.body.limit !== 'undefined')
@@ -44,7 +44,7 @@ const readAllOrdersByUser = async (req, res, next) => {
 
 
     const resultOrdersList = []
-
+1
     let pageAmount = 0;
 
     await Order.countDocuments({}).exec((err, count) => {

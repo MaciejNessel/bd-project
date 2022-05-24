@@ -10,35 +10,49 @@ import {ServerService} from "../services/server.service";
   styleUrls: ['./list-of-orders.component.css']
 })
 export class ListOfOrdersComponent implements OnInit {
-  limit = 1;
+  limit = 5;
   currentPage = 1;
-  maxNumOfPages = null;
+  maxNumOfPages = 0;
 
   orderList :OrderHistory[] = [
   ]
 
   constructor(private server: ServerService) {
-    this.loadMore();
+    this.load();
   }
 
 
   ngOnInit(): void {
   }
 
-  loadMore() {
+  load() {
     const body = {
       page: this.currentPage,
       limit: this.limit
     }
     this.server.fetchOrders(body).subscribe({
       next: data => {
-        this.orderList = this.orderList.concat(data.history);
+        this.orderList = data.history;
         this.maxNumOfPages = data.pageAmount;
       },
       error: error => {
         console.error('There was an error!', error);
       }
     });
-    this.currentPage++;
+  }
+
+  prevPage() {
+    this.currentPage = Math.max(this.currentPage - 1, 1);
+    this.load();
+  }
+
+  nextPage() {
+    this.currentPage = Math.min(this.currentPage + 1, this.maxNumOfPages);
+    this.load();
+  }
+
+  changeCurrentPage(number: Number) {
+    this.currentPage = Math.min(parseInt(number.valueOf().toString()), this.maxNumOfPages);
+    this.load();
   }
 }

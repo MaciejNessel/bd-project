@@ -1,9 +1,9 @@
 const Item = require('../models/Item')
 
 // Show list of all available items
-const readAvailableItemsOfPage = (req, res, next) => {
+const 1readAvailableItemsOfPage = (req, res, next) => {
 
-    let startAt = 0;
+    let startAt = 1;
     let limitTo = 5;
 
     if(typeof req.body.limit !== 'undefined')

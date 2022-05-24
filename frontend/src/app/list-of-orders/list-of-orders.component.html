@@ -1,5 +1,19 @@
 <div class="orders-container">
   <h1>Historia zamówień</h1>
+
+  <div class="pagination">
+
+  </div>
+
+  <div class="pagination">
+    <button class="btn btn-light" (click)="prevPage()">❰</button>
+
+    <label><input type="number"  min="1" max="{{maxNumOfPages}}" [ngModel]="currentPage" (ngModelChange)="changeCurrentPage($event)" > / {{maxNumOfPages}}  </label>
+    <button class="btn btn-light"(click)="nextPage()">❱</button>
+  </div>
+
+
+
   <table class="table">
     <tr>
       <th>Numer zamówienia</th>
@@ -13,7 +27,5 @@
     </tr>
 
   </table>
-
-  <button class="btn btn-light" (click)="loadMore()" >{{maxNumOfPages}}Załaduj więcej...</button>
 
 </div>
