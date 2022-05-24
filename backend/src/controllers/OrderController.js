@@ -44,10 +44,10 @@ const readAllOrdersByUser = async (req, res, next) => {
 
 
     const resultOrdersList = []
-1
+
     let pageAmount = 0;
 
-    await Order.countDocuments({}).exec((err, count) => {
+    await Order.countDocuments({user_id: req.user}).exec((err, count) => {
         pageAmount = Math.ceil(count / limitTo)
     })
 

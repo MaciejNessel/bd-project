@@ -25,4 +25,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.value.login, this.form.value.password);
   }
 
+  register() {
+    this.router.navigate(['registration'])
+  }
 }

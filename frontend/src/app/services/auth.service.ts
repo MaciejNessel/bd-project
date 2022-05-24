@@ -41,5 +41,15 @@ export class AuthService {
   }
 
   registerNew(user: User) {
+    this.server.register(user).subscribe(res=>{
+      if(!res.body.status){
+        alert(res.body.message);
+      }
+      else{
+        alert("Użytkownik dodany poprawnie.");
+        this.router.navigate(['login']);
+      }
+    });
   }
+
 }

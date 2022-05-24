@@ -61,13 +61,18 @@ export class ServerService {
     let headers = new HttpHeaders();
     return this.http.post<any>('http://localhost:2137/user/login', body,
       {observe: 'response', withCredentials: true, headers: headers});
-
   }
 
   auth(token: String) {
     this.token = token;
     return this.http.get<any>('http://localhost:2137/user/auth',
       {observe: 'response', withCredentials: true, headers: {'auth-token': token.toString()}});
+  }
+
+  register(body: any){
+    let headers = new HttpHeaders();
+    return this.http.post<any>('http://localhost:2137/user/register', body,
+      {observe: 'response', withCredentials: true, headers: headers});
   }
 
 }

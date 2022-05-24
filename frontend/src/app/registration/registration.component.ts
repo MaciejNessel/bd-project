@@ -30,6 +30,9 @@ export class RegistrationComponent implements OnInit {
     if(this.form.value.password!=this.form.value.repassword){
       alert('Hasła się nie zgadzają!')
     }
+    else if( !this.form.valid){
+      alert('Uzupełnij wszystkie pola!')
+    }
     else{
       const user: User = {
         userName: this.form.value.userName,
