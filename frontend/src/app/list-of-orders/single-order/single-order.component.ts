@@ -13,7 +13,12 @@ export class SingleOrderComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.status = this.order.status
+    switch (this.order.status){
+      case "unpaid": this.status = "nieopłacone"; break;
+      case "paid": this.status = "opłacone"; break;
+      case "cancelled": this.status = "anulowane"; break;
+    }
+
   }
 
 }

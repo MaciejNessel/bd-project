@@ -1,0 +1,39 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="container-login">
+
+    <h2>Rejestracja</h2>
+
+    <label for="userName">Username</label>
+    <div class="box">
+      <input type="text" class="form-control" id="userName" formControlName="userName">
+    </div>
+
+    <label for="email">E-mail:</label>
+    <div class="box">
+      <input type="text" class="form-control" id="email" formControlName="email">
+    </div>
+
+    <label for="password">Hasło: </label>
+    <div class="box">
+      <input type="password" class="form-control" id="password" formControlName="password">
+    </div>
+
+    <label for="repassword">Powtórz hasło:</label>
+    <div class="box">
+      <input type="password" class="form-control" id="repassword" formControlName="repassword">
+    </div>
+
+    <label for="firstName">Imię</label>
+    <div class="box">
+      <input type="text" class="form-control" id="firstName" formControlName="firstName">
+    </div>
+
+    <label for="lastName">Nazwisko:</label>
+    <div class="box">
+      <input type="text" class="form-control" id="lastName" formControlName="lastName">
+    </div>
+
+    <button type="submit" class="submitButton">Zarejestruj</button>
+  </div>
+
+</form>

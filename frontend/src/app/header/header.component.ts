@@ -29,4 +29,8 @@ export class HeaderComponent implements OnInit {
   addNew() {
     this.router.navigate(['/add-new']);
   }
+
+  login() {
+    this.router.navigate(['/login']);
+  }
 }

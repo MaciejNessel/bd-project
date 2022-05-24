@@ -3,6 +3,7 @@ const morgan = require('morgan')
 const bodyParser = require('body-parser')
 const ItemRoute = require('./src/routes/item')
 const OrderRoute = require('./src/routes/order')
+const UserRoute = require('./src/routes/user')
 const app = express();
 const cors = require('cors')
 
@@ -33,3 +34,4 @@ app.listen(PORT, () => {
 
 app.use(`/item`, ItemRoute)
 app.use('/order', OrderRoute)
+app.use('/user', UserRoute)

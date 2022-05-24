@@ -15,6 +15,8 @@ import { AddItemComponent } from './add-item/add-item.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { SingleOrderComponent } from './list-of-orders/single-order/single-order.component';
 import { ItemFilterComponent } from './item-filter/item-filter.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { ItemFilterComponent } from './item-filter/item-filter.component';
     AddItemComponent,
     SingleOrderComponent,
     ItemFilterComponent,
+    RegistrationComponent,
+    LoginComponent,
 
   ],
   imports: [
