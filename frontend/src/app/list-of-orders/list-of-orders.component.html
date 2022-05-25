@@ -5,10 +5,12 @@
 
   </div>
 
+  <label class="pagination">Liczba zamówień na stronie:  <input type="number"  min="1" [ngModel]="limit" (ngModelChange)="changeLimit($event)" ></label>
+
   <div class="pagination">
     <button class="btn btn-light" (click)="prevPage()">❰</button>
 
-    <label><input type="number"  min="1" max="{{maxNumOfPages}}" [ngModel]="currentPage" (ngModelChange)="changeCurrentPage($event)" > / {{maxNumOfPages}}  </label>
+    <label><input type="number" min="1" max="{{maxNumOfPages}}" [ngModel]="currentPage" (ngModelChange)="changeCurrentPage($event)" > / {{maxNumOfPages}}  </label>
     <button class="btn btn-light"(click)="nextPage()">❱</button>
   </div>
 
@@ -27,5 +29,6 @@
     </tr>
 
   </table>
+
 
 </div>

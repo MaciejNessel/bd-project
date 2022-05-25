@@ -9,7 +9,7 @@ import {Router} from "@angular/router";
 })
 export class ItemFilterPaginationService {
   items: Item[] = [];
-  limit: Number = 3;
+  limit: Number = 12;
   currentPage = 0;
   bodyFiltered = {};
 

@@ -1,12 +1,27 @@
 a{
   color: white;
 }
+
 .title{
   display: flex;
   justify-content: space-between;
+  margin-top: 20px;
+  height: 15%;
 }
 
 img{
   width: 100%;
   height: auto;
+}
+
+card{
+  max-width: 200px;
+}
+
+.btn-center{
+  position: relative;
+  margin: 0 auto;
+  bottom: 20px;
+
+  width: 200px;
 }

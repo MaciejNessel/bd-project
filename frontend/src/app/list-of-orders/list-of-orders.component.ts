@@ -53,6 +53,12 @@ export class ListOfOrdersComponent implements OnInit {
 
   changeCurrentPage(number: Number) {
     this.currentPage = Math.min(parseInt(number.valueOf().toString()), this.maxNumOfPages);
+    this.currentPage = Math.max(this.currentPage, 1);
     this.load();
+  }
+
+  changeLimit(number: Number) {
+    this.limit = parseInt(number.valueOf().toString());
+    this.changeCurrentPage(1);
   }
 }
