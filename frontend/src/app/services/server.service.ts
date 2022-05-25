@@ -43,18 +43,7 @@ export class ServerService {
   }
 
   createItem(newItem: Item) {
-    this.http.post<any>('http://localhost:2137/item/create', newItem, { headers: {'auth-token': this.token.toString()}}).subscribe({
-      next: data => {
-        if(data.status){
-          alert("Produkt został poprawnie wprowadzony.");
-        }else{
-          alert("Wystąpił problem...");
-        }
-      },
-      error: error => {
-        alert("Wystąpił problem...");
-      }
-    });
+    return this.http.post<any>('http://localhost:2137/item/create', newItem, { headers: {'auth-token': this.token.toString()}});
   }
 
   login(body: {password: String; userName: String}) : Observable<any>{

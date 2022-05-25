@@ -105,7 +105,7 @@ const createItem = (req, res, next) => {
         gender: req.body.gender,
         price: req.body.price,
         size: req.body.size,
-        imageURL: req.body.image_url
+        imageURL: req.body.imageURL
     })
     itemData.save().then(response => {
         res.json({
@@ -132,7 +132,7 @@ const updateItem = (req, res, next) => {
         gender: req.body.gender,
         size: req.body.size,
         price: req.body.price,
-        imageURL: req.body.image_url
+        imageURL: req.body.imageURL
     }
     Item.findOneAndUpdate(itemID, {$set: updatedItemData}).then(() => {
         res.json({

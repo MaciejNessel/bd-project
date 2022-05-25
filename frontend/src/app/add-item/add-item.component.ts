@@ -52,12 +52,22 @@ export class AddItemComponent implements OnInit {
   submit() {
     console.log(this.newItem);
     if (this.form.invalid){
-      alert("Uzupełnij wszystkie pola!");
+      alert("Uzupełnij wszystkie pola prawidłowymi danymi.");
       return;
     } else{
-      this.server.createItem(this.newItem);
-      //this.form.reset();
-      console.log(this.newItem)
+      this.server.createItem(this.newItem).subscribe({
+        next: data => {
+          if(data.status){
+            alert("Produkt został poprawnie wprowadzony.");
+            this.form.reset();
+          }else{
+            alert("Wystąpił problem..." + data.message.toString());
+          }
+        },
+        error: error => {
+          alert("Wystąpił problem..." + + error.message);
+        }
+      });
     }
   }
 }

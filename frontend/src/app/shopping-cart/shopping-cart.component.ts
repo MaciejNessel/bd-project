@@ -9,6 +9,7 @@ import {Router} from "@angular/router";
   styleUrls: ['./shopping-cart.component.css']
 })
 export class ShoppingCartComponent implements OnInit {
+
   constructor(public productsService: CartService, public auth: AuthService, private router: Router) {
   }
 
